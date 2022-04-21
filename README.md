@@ -1,6 +1,6 @@
-# Thorium
+#Thorium
 
-# project_E-Commerce
+## Project - Products Management
 
 ### Key points
 - In this project we will work feature wise. That means we pick one object like user, book, blog, etc at a time. We work through it's feature. The steps would be:
@@ -13,14 +13,14 @@
 - This project is divided into 4 features namely User, Product, Cart and Order. You need to work on a single feature at a time. Once that is completed as per above mentioned steps. You will be instructed to move to next Feature.
 - In this project we are changing how we send token with a request. Instead of using a custom header key like x-api-key, you need to use Authorization header and send the JWT token as Bearer token.
 - Create a group database `groupXDatabase`. You can clean the db you previously used and resue that.
-- This time each group should have a single git branch. Coordinate amongst yourselves by ensuring every next person pulls the code last pushed by a team mate. You branch will be checked as part of the demo. Branch name should follow the naming convention `project/productsManagementGroupX`
+- This time each group should have a *single git branch*. Coordinate amongst yourselves by ensuring every next person pulls the code last pushed by a team mate. You branch will be checked as part of the demo. Branch name should follow the naming convention `project/productsManagementGroupX`
 - Follow the naming conventions exactly as instructed.
 
 
 ## FEATURE I - User
 ### Models
 - User Model
-yaml
+```yaml
 { 
   fname: {string, mandatory},
   lname: {string, mandatory},
@@ -43,7 +43,7 @@ yaml
   createdAt: {timestamp},
   updatedAt: {timestamp}
 }
-
+```
 
 
 ## User APIs 
@@ -51,10 +51,10 @@ yaml
 - Create a user document from request body. Request body must contain image.
 - Upload image to S3 bucket and save it's public url in user document.
 - Save password in encrypted format. (use bcrypt)
-- _Response format_
-  - *On success* - Return HTTP status 201. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
-yaml
+- __Response format__
+  - _**On success**_ - Return HTTP status 201. Also return the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+```yaml
 {
     "status": true,
     "message": "User created successfully",
@@ -83,16 +83,16 @@ yaml
         "__v": 0
     }
 }
-
+```
 
 ### POST /login
 - Allow an user to login with their email and password.
 - On a successful login attempt return the userId and a JWT token contatining the userId, exp, iat.
-> *NOTE:* There is a slight change in response body. You should also return userId in addition to the JWT token.
-- _Response format_
-  - *On success* - Return HTTP status 200 and JWT token in response body. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
-yaml
+> **_NOTE:_** There is a slight change in response body. You should also return userId in addition to the JWT token.
+- __Response format__
+  - _**On success**_ - Return HTTP status 200 and JWT token in response body. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+```yaml
 {
     "status": true,
     "message": "User login successfull",
@@ -101,15 +101,15 @@ yaml
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTYyODc2YWJkY2I3MGFmZWVhZjljZjUiLCJpYXQiOjE2MzM4NDczNzYsImV4cCI6MTYzMzg4MzM3Nn0.PgcBPLLg4J01Hyin-zR6BCk7JHBY-RpuWMG_oIK7aV8"
     }
 }
-
+```
 
 ## GET /user/:userId/profile (Authentication required)
 - Allow an user to fetch details of their profile.
 - Make sure that userId in url param and in token is same
-- _Response format_
-  - *On success* - Return HTTP status 200 and returns the user document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
-yaml
+- __Response format__
+  - _**On success**_ - Return HTTP status 200 and returns the user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+```yaml
 {
     "status": true,
     "message": "User profile details",
@@ -138,16 +138,16 @@ yaml
         "__v": 0
     }
 }
-
+```
 
 ## PUT /user/:userId/profile (Authentication and Authorization required)
 - Allow an user to update their profile.
 - A user can update all the fields
 - Make sure that userId in url param and in token is same
-- _Response format_
-  - *On success* - Return HTTP status 200. Also return the updated user document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
-yaml
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Also return the updated user document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+```yaml
 {
     "status": true,
     "message": "User profile updated",
@@ -176,7 +176,7 @@ yaml
         "__v": 0
     }
 }
-
+```
 
 Note: [Bcrypt](https://www.npmjs.com/package/bcrypt)
 Send [form-data](https://developer.mozilla.org/en-US/docs/Web/API/FormData)
@@ -184,7 +184,7 @@ Send [form-data](https://developer.mozilla.org/en-US/docs/Web/API/FormData)
 ## FEATTURE II - Product
 ### Models
 - Product Model
-yaml
+```yaml
 { 
   title: {string, mandatory, unique},
   description: {string, mandatory},
@@ -201,58 +201,58 @@ yaml
   createdAt: {timestamp},
   updatedAt: {timestamp},
 }
+```
 
 
-
-## Products API (No authentication required)
+## Products API (_No authentication required_)
 ### POST /products
 - Create a product document from request body.
 - Upload product image to S3 bucket and save image public url in document.
-- _Response format_
-  - *On success* - Return HTTP status 201. Also return the product document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 201. Also return the product document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ### GET /products
 - Returns all products in the collection that aren't deleted.
-  - _Filters_
+  - __Filters__
     - Size (The key for this filter will be 'size')
     - Product name (The key for this filter will be 'name'). You should return all the products with name containing the substring recieved in this filter
     - Price : greater than or less than a specific value. The keys are 'priceGreaterThan' and 'priceLessThan'. 
     
-> *NOTE:* For price filter request could contain both or any one of the keys. For example the query in the request could look like { priceGreaterThan: 500, priceLessThan: 2000 } or just { priceLessThan: 1000 } )
+> **_NOTE:_** For price filter request could contain both or any one of the keys. For example the query in the request could look like { priceGreaterThan: 500, priceLessThan: 2000 } or just { priceLessThan: 1000 } )
     
-  - _Sort_
+  - __Sort__
     - Sorted by product price in ascending or descending. The key value pair will look like {priceSort : 1} or {priceSort : -1}
-  eg /products?size=XL&name=Nit%20grit
-- _Response format_
-  - *On success* - Return HTTP status 200. Also return the product documents. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+  _eg_ /products?size=XL&name=Nit%20grit
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Also return the product documents. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ### GET /products/:productId
 - Returns product details by product id
-- _Response format_
-  - *On success* - Return HTTP status 200. Also return the product documents. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Also return the product documents. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ### PUT /products/:productId
 - Updates a product by changing at least one or all fields
 - Check if the productId exists (must have isDeleted false and is present in collection). If it doesn't, return an HTTP status 404 with a response body like [this](#error-response-structure)
-- _Response format_
-  - *On success* - Return HTTP status 200. Also return the updated product document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Also return the updated product document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ### DELETE /products/:productId
 - Deletes a product by product id if it's not already deleted
-- _Response format_
-  - *On success* - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 
 
 ## FEATURE III - Cart
 ### Models
 - Cart Model
-yaml
+```yaml
 {
   userId: {ObjectId, refs to User, mandatory, unique},
   items: [{
@@ -264,10 +264,10 @@ yaml
   createdAt: {timestamp},
   updatedAt: {timestamp},
 }
+```
 
 
-
-## Cart APIs (authentication required as authorization header - bearer token)
+## Cart APIs (_authentication required as authorization header - bearer token_)
 ### POST /users/:userId/cart (Add to cart)
 - Create a cart for the user if it does not exist. Else add product(s) in cart.
 - Get cart id in request body.
@@ -278,9 +278,9 @@ yaml
 - Make sure the user exist
 - Make sure the product(s) are valid and not deleted.
 - Get product(s) details in response body.
-- _Response format_
-  - *On success* - Return HTTP status 201. Also return the cart document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 201. Also return the cart document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ### PUT /users/:userId/cart (Remove product / Reduce a product's quantity from the cart)
 - Updates a cart by either decrementing the quantity of a product by 1 or deleting a product from the cart.
@@ -293,9 +293,9 @@ yaml
 - Make sure the user exist
 - Get product(s) details in response body.
 - Check if the productId exists and is not deleted before updating the cart.
-- _Response format_
-  - *On success* - Return HTTP status 200. Also return the updated cart document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Also return the updated cart document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ### GET /users/:userId/cart
 - Returns cart summary of the user.
@@ -303,9 +303,9 @@ yaml
 - Make sure the userId in params and in JWT token match.
 - Make sure the user exist
 - Get product(s) details in response body.
-- _Response format_
-  - *On success* - Return HTTP status 200. Return the cart document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Return the cart document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ### DELETE /users/:userId/cart
 - Deletes the cart for the user.
@@ -313,16 +313,16 @@ yaml
 - Make sure the userId in params and in JWT token match.
 - Make sure the user exist
 - cart deleting means array of items is empty, totalItems is 0, totalPrice is 0.
-- _Response format_
-  - *On success* - Return HTTP status 204. Return a suitable message. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 204. Return a suitable message. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 
 
 ## FEATURE IV - Order
 ### Models
 - Order Model
-yaml
+```yaml
 {
   userId: {ObjectId, refs to User, mandatory},
   items: [{
@@ -339,7 +339,7 @@ yaml
   createdAt: {timestamp},
   updatedAt: {timestamp},
 }
-
+```
 
 
 ## Checkout/Order APIs (Authentication and authorization required)
@@ -348,9 +348,9 @@ yaml
 - Make sure the userId in params and in JWT token match.
 - Make sure the user exist
 - Get cart details in the request body
-- _Response format_
-  - *On success* - Return HTTP status 200. Also return the order document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Also return the order document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ## PUT /users/:userId/orders
 - Updates an order status
@@ -359,9 +359,9 @@ yaml
 - Get order id in request body
 - Make sure the order belongs to the user
 - Make sure that only a cancellable order could be canceled. Else send an appropriate error message and response.
-- _Response format_
-  - *On success* - Return HTTP status 200. Also return the updated order document. The response should be a JSON object like [this](#successful-response-structure)
-  - *On error* - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
+- __Response format__
+  - _**On success**_ - Return HTTP status 200. Also return the updated order document. The response should be a JSON object like [this](#successful-response-structure)
+  - _**On error**_ - Return a suitable error message with a valid HTTP status code. The response should be a JSON object like [this](#error-response-structure)
 
 ## Testing 
 - To test these apis create a new collection in Postman named Project 5 Shopping Cart
@@ -375,7 +375,7 @@ Refer below sample
 ## Response
 
 ### Successful Response structure
-yaml
+```yaml
 {
   status: true,
   message: 'Success',
@@ -383,18 +383,18 @@ yaml
 
   }
 }
-
+```
 ### Error Response structure
-yaml
+```yaml
 {
   status: false,
   message: ""
 }
-
+```
 
 ## Collections
 ## users
-yaml
+```yaml
 {
   _id: ObjectId("88abc190ef0288abc190ef02"),
   fname: 'John',
@@ -418,9 +418,9 @@ yaml
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
-
+```
 ### products
-yaml
+```yaml
 {
   _id: ObjectId("88abc190ef0288abc190ef55"),
   title: 'Nit Grit',
@@ -438,10 +438,10 @@ yaml
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
-
+```
 
 ### carts
-yaml
+```yaml
 {
   "_id": ObjectId("88abc190ef0288abc190ef88"),
   userId: ObjectId("88abc190ef0288abc190ef02"),
@@ -457,10 +457,10 @@ yaml
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
-
+```
 
 ### orders
-yaml
+```yaml
 {
   "_id": ObjectId("88abc190ef0288abc190ef88"),
   userId: ObjectId("88abc190ef0288abc190ef02"),
@@ -479,3 +479,4 @@ yaml
   createdAt: "2021-09-17T04:25:07.803Z",
   updatedAt: "2021-09-17T04:25:07.803Z",
 }
+```
