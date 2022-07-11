@@ -9,8 +9,8 @@ app.use(bodyParser.json()); //  global middlewares content type : application/js
 app.use(bodyParser.urlencoded({extended: true}));  //  global middlewares
 app.use(multer().any()) 
 
-mongoose.connect("mongodb+srv://sumandev:aBosU15RXTGZYkKq@cluster0.4du2i.mongodb.net/group34Database?retryWrites=true&w=majority", {useNewUrlParser: true})
-.then(() => console.log('mongodb running on 27017'))
+mongoose.connect("mongodb+srv://group25:group25@cluster0.syx2i.mongodb.net/test", {useNewUrlParser: true})
+.then(() => console.log('MongoDB is Connected..'))
 .catch(err => console.log((err)))
 
 app.use('/', route);
